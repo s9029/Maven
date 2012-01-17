@@ -22,6 +22,15 @@ public class Customer {
 		}
 		this.cash = money;
 	}
+	
+	public Customer(String name, int money) throws InvalidMoneyAmountValue {
+		myVideoList = new ArrayList<Movie>();
+		this.name = name;
+		if (money < 0) {
+			throw new InvalidMoneyAmountValue();
+		}
+		this.cash = (float)money;
+	}
 
 	
 	public String getName() {

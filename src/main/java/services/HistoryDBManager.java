@@ -10,10 +10,10 @@ public class HistoryDBManager {
 
 	private Connection conn;
 	private Statement stmt;
-	private PreparedStatement LendBookToCustomerStmt;
-	private PreparedStatement deleteAllLendingsStmt;
-	private PreparedStatement deleteMovieLendingsStmt;
-	private PreparedStatement getCustomerBookStmt;
+	private PreparedStatement SellMovieStmt;
+	private PreparedStatement deleteAllSalesStmt;
+	private PreparedStatement deleteHistoryStmt;
+	private PreparedStatement getHistoryStmt;
 
 	public HistoryDBManager() {
 		try {
@@ -45,16 +45,16 @@ public class HistoryDBManager {
 						+ " CONSTRAINT movie_id_fk FOREIGN KEY (movie) REFERENCES movies (id))");
 			}
 
-			LendBookToCustomerStmt = conn
+			SellMovieStmt = conn
 					.prepareStatement("INSERT INTO history (customerID, movieID) VALUES (?, ?)");
 
-			deleteMovieLendingsStmt = conn
+			deleteHistoryStmt = conn
 					.prepareStatement("DELETE FROM history WHERE customerID = ?");
 
-			deleteAllLendingsStmt = conn
+			deleteAllSalesStmt = conn
 					.prepareStatement("DELETE FROM history");
 
-			getCustomerBookStmt = conn
+			getHistoryStmt = conn
 					.prepareStatement("SELECT movies.title, movies.price FROM movies,"
 							+ " history WHERE customerID = ? and movieID = movies.id");
 
@@ -64,13 +64,13 @@ public class HistoryDBManager {
 		}
 	}
 
-	public void BorrowMovie(List<Integer> myCustomerList, List<Integer> myBookList) {
+	public void SellMovie(List<Integer> myCustomerList, List<Integer> myBookList) {
 		try {
 			for (Integer customerID : myCustomerList) {
 				for (Integer bookID : myBookList) {
-					LendBookToCustomerStmt.setInt(1, customerID);
-					LendBookToCustomerStmt.setInt(2, bookID);
-					LendBookToCustomerStmt.executeUpdate();
+					SellMovieStmt.setInt(1, customerID);
+					SellMovieStmt.setInt(2, bookID);
+					SellMovieStmt.executeUpdate();
 				}
 			}
 		} catch (SQLException e) {
@@ -80,11 +80,11 @@ public class HistoryDBManager {
 
 	}
 
-	public void deleteMovieLendings(List<Integer> myCustomerList) {
+	public void deleteHistory(List<Integer> myCustomerList) {
 		try {
 			for (Integer customerID : myCustomerList) {
-				deleteMovieLendingsStmt.setInt(1, customerID);
-				deleteMovieLendingsStmt.executeUpdate();
+				deleteHistoryStmt.setInt(1, customerID);
+				deleteHistoryStmt.executeUpdate();
 			}
 		} catch (SQLException e) {
 
@@ -93,9 +93,9 @@ public class HistoryDBManager {
 
 	}
 
-	public void deleteAllLendings() {
+	public void deleteAllSales() {
 		try {
-			deleteAllLendingsStmt.executeUpdate();
+			deleteAllSalesStmt.executeUpdate();
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -107,8 +107,8 @@ public class HistoryDBManager {
 		List<Movie> myMovieList = new ArrayList<Movie>();
 		try {
 			for (Integer customerID : myCustomerList) {
-				getCustomerBookStmt.setInt(1, customerID);
-				ResultSet rs = getCustomerBookStmt.executeQuery();
+				getHistoryStmt.setInt(1, customerID);
+				ResultSet rs = getHistoryStmt.executeQuery();
 				while (rs.next()) {
 					myMovieList.add(new Movie(rs.getString("title"), rs
 							.getFloat("price")));

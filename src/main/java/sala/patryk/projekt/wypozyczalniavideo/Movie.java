@@ -9,6 +9,11 @@ public class Movie {
 		this.title = title;
 		this.price = price;
 	}
+	
+	public Movie(String title, int price) {
+		this.title = title;
+		this.price = (float)price;
+	}
 
 	public String getTitle() {
 		return title;
