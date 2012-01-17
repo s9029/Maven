@@ -27,13 +27,6 @@ public class Customer {
 	public String getName() {
 		return name;
 	}
-	
-	public void showHistory() {
-		List<History> historyForCustomer = new HistoryDBManager().getHistoryForCustomer(this);
-		for (History history : historyForCustomer) {
-			System.out.println(this.getName() + " wypozyczyl " + history.getMovie() + " w dniu " + history.getTimestamp());
-		}
-	}
 
 
 	public void showAllMyRentedMovies() {
@@ -41,13 +34,6 @@ public class Customer {
 		for (Movie movie : myVideoList) {
 			logger.info(movie.toString());
 		}
-	}
-
-	public void takeMovieAndCreateHistoryLog(Movie movie) {
-		myVideoList.add(movie);
-
-		// add history information
-		new HistoryDBManager().addHistory(movie, this);
 	}
 
 	public Movie returnMovie(String title) {

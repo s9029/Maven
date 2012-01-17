@@ -1,89 +1,124 @@
 package services;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.sql.*;
+import java.util.*;
 
-import sala.patryk.projekt.wypozyczalniavideo.Customer;
-import sala.patryk.projekt.wypozyczalniavideo.History;
-import sala.patryk.projekt.wypozyczalniavideo.Movie;
+import sala.patryk.projekt.wypozyczalniavideo.*;
 
-public class HistoryDBManager extends DBManager {
+public class HistoryDBManager {
 
-	private PreparedStatement addMovieToCustomerStmt;
-	private PreparedStatement findHistoryForCustomerStmt;
-	private PreparedStatement addHistoryForUserStmt;
+	private Connection conn;
+	private Statement stmt;
+	private PreparedStatement LendBookToCustomerStmt;
+	private PreparedStatement deleteAllLendingsStmt;
+	private PreparedStatement deleteMovieLendingsStmt;
+	private PreparedStatement getCustomerBookStmt;
 
 	public HistoryDBManager() {
-
 		try {
-			findHistoryForCustomerStmt = conn
-					.prepareStatement("select * from history where customer_id=?");
-			addHistoryForUserStmt = conn
-					.prepareStatement("insert into history(customer_id,movie_id,timestamp) values(?,?,NOW())");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+			Properties props = new Properties();
 
-	public void addHistory(Movie movie, Customer customer) {
-		try {
-			addHistoryForUserStmt.setLong(1, customer.getId());
-			addHistoryForUserStmt.setLong(2, movie.getId());
-			addHistoryForUserStmt.execute(); 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	
-	public void deleteHistoryForCustomer(Customer customer){
-		try {
-			PreparedStatement statement = conn.prepareStatement("delete from history where customer_id=?");
-			statement.setLong(1, customer.getId());
-			statement.execute();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public List<History> getHistoryForCustomer(Customer customer) {
-		List<History> histories = new ArrayList<History>();
-		try {
-			findHistoryForCustomerStmt.setLong(1, customer.getId());
-			ResultSet rs = findHistoryForCustomerStmt.executeQuery();
-
-			while (rs.next()) {
-				History history = new History();
-				history.setCustomerId(rs.getLong("customer_id"));
-				history.setMovieId(rs.getLong("movie_id"));
-				history.setTimestamp(rs.getTimestamp("timestamp"));
-				histories.add(history);
+			try {
+				props.load(ClassLoader
+						.getSystemResourceAsStream("com/pl/reso/jdbc.properties"));
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 
+			conn = DriverManager.getConnection(props.getProperty("url"));
+
+			stmt = conn.createStatement();
+			boolean HistoryTableExists = false;
+
+			ResultSet rs = conn.getMetaData().getTables(null, null, null, null);
+
+			while (rs.next()) {
+				if ("History".equalsIgnoreCase(rs.getString("TABLE_NAME"))) {
+					HistoryTableExists = true;
+					break;
+				}
+			}
+
+			if (!HistoryTableExists) {
+				stmt.executeUpdate("CREATE TABLE history(customerID int, movieID bigint, CONSTRAINT customer_id_fk FOREIGN KEY (customerID) REFERENCES customer (id),"
+						+ " CONSTRAINT movie_id_fk FOREIGN KEY (movie) REFERENCES movies (id))");
+			}
+
+			LendBookToCustomerStmt = conn
+					.prepareStatement("INSERT INTO history (customerID, movieID) VALUES (?, ?)");
+
+			deleteMovieLendingsStmt = conn
+					.prepareStatement("DELETE FROM history WHERE customerID = ?");
+
+			deleteAllLendingsStmt = conn
+					.prepareStatement("DELETE FROM history");
+
+			getCustomerBookStmt = conn
+					.prepareStatement("SELECT movies.title, movies.price FROM movies,"
+							+ " history WHERE customerID = ? and movieID = movies.id");
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+		}
+	}
+
+	public void BorrowMovie(List<Integer> myCustomerList, List<Integer> myBookList) {
+		try {
+			for (Integer customerID : myCustomerList) {
+				for (Integer bookID : myBookList) {
+					LendBookToCustomerStmt.setInt(1, customerID);
+					LendBookToCustomerStmt.setInt(2, bookID);
+					LendBookToCustomerStmt.executeUpdate();
+				}
+			}
+		} catch (SQLException e) {
+
 			e.printStackTrace();
 		}
 
-		return histories;
 	}
 
-	public void addMovieToCustomer(Customer customer, Movie movie)
-			throws SQLException {
-		long id = customer.getId();
-		addMovieToCustomerStmt.setString(4, movie.getTitle());
-		addMovieToCustomerStmt.setBoolean(2, true);
-		addMovieToCustomerStmt.setString(1, movie.getDirector());
-		addMovieToCustomerStmt.setFloat(3, movie.getPrice());
-		addMovieToCustomerStmt.setFloat(6, id);
-		addMovieToCustomerStmt.setFloat(5, 1);
+	public void deleteMovieLendings(List<Integer> myCustomerList) {
+		try {
+			for (Integer customerID : myCustomerList) {
+				deleteMovieLendingsStmt.setInt(1, customerID);
+				deleteMovieLendingsStmt.executeUpdate();
+			}
+		} catch (SQLException e) {
 
-		addMovieToCustomerStmt.execute();
+			e.printStackTrace();
+		}
+
 	}
+
+	public void deleteAllLendings() {
+		try {
+			deleteAllLendingsStmt.executeUpdate();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+	}
+
+	public List<Movie> getHistory(List<Integer> myCustomerList) {
+		List<Movie> myMovieList = new ArrayList<Movie>();
+		try {
+			for (Integer customerID : myCustomerList) {
+				getCustomerBookStmt.setInt(1, customerID);
+				ResultSet rs = getCustomerBookStmt.executeQuery();
+				while (rs.next()) {
+					myMovieList.add(new Movie(rs.getString("title"), rs
+							.getFloat("price")));
+				}
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		return myMovieList;
+	}
+
 }

@@ -44,23 +44,6 @@ public class VideoRental {
 		}
 	}
 
-	public List<Movie> findMovieByDirector(String director) {
-		List<Movie> resultList = new ArrayList<Movie>();
-		for (Movie movie : videoList) {
-			if (movie.getDirector().equals(director))
-				resultList.add(movie);
-		}
-		return resultList;
-	}
-
-	public List<Movie> findMovieByType(String type) {
-		List<Movie> resultList = new ArrayList<Movie>();
-		for (Movie movie : videoList) {
-			if (movie.getType().equals(ItemType.valueOf(type)))
-				resultList.add(movie);
-		}
-		return resultList;
-	}
 
 	public Movie findMovieByTitle(String title) {
 		for (Movie movie : videoList) {
@@ -71,18 +54,4 @@ public class VideoRental {
 		return null;
 	}
 
-	public void rentMovie(Customer customer, Movie smerfyMovie)
-			throws NoMoneyException {
-		if (smerfyMovie.isAvailable()) {
-			float moneyFromCustomer;
-			moneyFromCustomer = customer.payMoney(smerfyMovie.getPrice());
-			totalCashInVideoRental = totalCashInVideoRental + moneyFromCustomer;
-			smerfyMovie.setAvailable(false); // film nie bedzie juz dostepny
-												// poniewaz wlasnie jest
-												// wypozyczany
-			customer.takeMovieAndCreateHistoryLog(smerfyMovie);
-			logger.debug("Klient " + customer.getName()
-					+ " wlasnie wypozyczyl film " + smerfyMovie.getTitle());
-		}
-	}
 }
