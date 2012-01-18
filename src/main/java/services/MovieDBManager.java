@@ -24,7 +24,7 @@ public class MovieDBManager {
 
 			try {
 				props.load(ClassLoader
-						.getSystemResourceAsStream("/reso/jdbc.properties"));
+						.getSystemResourceAsStream("mydb.properties"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

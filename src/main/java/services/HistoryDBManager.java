@@ -21,7 +21,7 @@ public class HistoryDBManager {
 
 			try {
 				props.load(ClassLoader
-						.getSystemResourceAsStream("com/pl/reso/jdbc.properties"));
+						.getSystemResourceAsStream("mydb.properties"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
