@@ -64,12 +64,12 @@ public class HistoryDBManager {
 		}
 	}
 
-	public void SellMovie(List<Integer> myCustomerList, List<Integer> myBookList) {
+	public void SellMovie(List<Integer> myCustomerList, List<Integer> myMovieList) {
 		try {
 			for (Integer customerID : myCustomerList) {
-				for (Integer bookID : myBookList) {
+				for (Integer movieID : myMovieList) {
 					SellMovieStmt.setInt(1, customerID);
-					SellMovieStmt.setInt(2, bookID);
+					SellMovieStmt.setInt(2, movieID);
 					SellMovieStmt.executeUpdate();
 				}
 			}

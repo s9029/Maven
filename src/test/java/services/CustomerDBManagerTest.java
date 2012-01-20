@@ -32,6 +32,7 @@ public class CustomerDBManagerTest {
 		} catch (InvalidMoneyAmountValue e) {
 			e.printStackTrace();
 		}
+		assertEquals(2,CustomerManager.getAllCustomers().size());
 	}
 
 	@Test
