@@ -64,7 +64,7 @@ public class Main {
 		System.out.println("Name: " + movie.getTitle() + "\nPrice: " + movie.getPrice());
 	}
 
-	// klasy anonimowe
+	// klasa anonimowe
 	
 	System.out.println("Imie klienta dluzsze niz 7 znakow");
 	CustomerManager.printCustomerWithCondition(
@@ -79,9 +79,9 @@ public class Main {
 			});
 	
 	// clean database segment
+	HistoryManager.deleteAllSales();
 	MovieManager.deleteAllMovies();
 	CustomerManager.deleteAllCustomers();
-	HistoryManager.deleteAllSales();
 	
 	}
 }

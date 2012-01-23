@@ -49,7 +49,7 @@ public class MovieDBManager {
 			}
 
 			addMovieStmt = conn
-					.prepareStatement("INSERT INTO movies (name, price) VALUES (?, ?)");
+					.prepareStatement("INSERT INTO movies (title, price) VALUES (?, ?)");
 
 			getMovieStmt = conn.prepareStatement("SELECT * FROM movies");
 

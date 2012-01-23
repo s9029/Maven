@@ -42,7 +42,7 @@ public class HistoryDBManager {
 
 			if (!HistoryTableExists) {
 				stmt.executeUpdate("CREATE TABLE history(customerID int, movieID bigint, CONSTRAINT customer_id_fk FOREIGN KEY (customerID) REFERENCES customer (id),"
-						+ " CONSTRAINT movie_id_fk FOREIGN KEY (movie) REFERENCES movies (id))");
+						+ " CONSTRAINT movie_id_fk FOREIGN KEY (movieID) REFERENCES movies (id))");
 			}
 
 			SellMovieStmt = conn
