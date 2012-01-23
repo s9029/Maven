@@ -38,12 +38,12 @@ public class HistoryDBManagerTest {
 	public void testSellMovie() {
 		MovieManager.addMovie(new Movie("title4",(float)100));
 		HistoryManager.SellMovie(CustomerManager.findCustomerByName("Pan1"), MovieManager.findMovieByTitle("title4"));
-		assertEquals(3, HistoryManager.getHistory(CustomerManager.findCustomerByName("Pan1")));
+		assertEquals(2, HistoryManager.getHistory(CustomerManager.findCustomerByName("Pan1")).size());
 	}
 
 	@Test
 	public void testDeleteHistory() {
-		assertEquals(2, HistoryManager.getHistory(CustomerManager.findCustomerByName("Pan1")).size());
+		assertEquals(1, HistoryManager.getHistory(CustomerManager.findCustomerByName("Pan1")).size());
 		HistoryManager.deleteHistory(CustomerManager.findCustomerByName("Pan1"));
 		assertEquals(0, HistoryManager.getHistory(CustomerManager.findCustomerByName("Pan1")).size());
 	}
@@ -56,7 +56,7 @@ public class HistoryDBManagerTest {
 
 	@Test
 	public void testGetHistory() {
-		assertEquals(2, HistoryManager.getHistory(CustomerManager.findCustomerByName("Pan1")).size());
+		assertEquals(1, HistoryManager.getHistory(CustomerManager.findCustomerByName("Pan1")).size());
 	}
 
 }

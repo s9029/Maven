@@ -72,16 +72,15 @@ public class Main {
 				
 				@Override
 				public boolean getCondition(Customer customer) {
-					if (customer.getName().length() > 7)
-						return true;
-					return false;
+					return customer.getName().length() > 7;
+						
 				}
 			});
 	
-	// clean database segment
-	HistoryManager.deleteAllSales();
-	MovieManager.deleteAllMovies();
-	CustomerManager.deleteAllCustomers();
+	// clean database segmen
+//	HistoryManager.deleteAllSales();
+//	MovieManager.deleteAllMovies();
+//	CustomerManager.deleteAllCustomers();
 	
 	}
 }

@@ -136,7 +136,7 @@ public class CustomerDBManager {
 		}
 	}
 
-	// klasa anonimowa <- jej cialo jest tworzone w momencie wywolania
+	// klasa anonimowa 
 	public void printCustomerWithCondition(List<Customer> CustomerList,
 			Condition condition) {
 		for (Customer customer : CustomerList) {
