@@ -77,7 +77,7 @@ public class Main {
 				}
 			});
 	
-	// clean database segmen
+	// clean database segment
 //	HistoryManager.deleteAllSales();
 //	MovieManager.deleteAllMovies();
 //	CustomerManager.deleteAllCustomers();
