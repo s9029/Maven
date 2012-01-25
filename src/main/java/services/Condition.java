@@ -1,6 +1,6 @@
 package services;
 
-import sala.patryk.projekt.wypozyczalniavideo.*;
+import blazej.kwidzinski.mpr.wypozyczalniaaut.*;
 
 public abstract class Condition {
 

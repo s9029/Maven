@@ -1,4 +1,4 @@
-package sala.patryk.projekt.wypozyczalniavideo.tests;
+package blazej.kwidzinski.mpr.wypozyczalniaaut.tests;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -10,51 +10,40 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import sala.patryk.projekt.wypozyczalniavideo.Customer;
-import sala.patryk.projekt.wypozyczalniavideo.History;
-import sala.patryk.projekt.wypozyczalniavideo.InvalidMoneyAmountValue;
-import sala.patryk.projekt.wypozyczalniavideo.ItemType;
-import sala.patryk.projekt.wypozyczalniavideo.Movie;
-import sala.patryk.projekt.wypozyczalniavideo.NoMoneyException;
-import sala.patryk.projekt.wypozyczalniavideo.VideoRental;
+import blazej.kwidzinski.mpr.wypozyczalniaaut.Customer;
+import blazej.kwidzinski.mpr.wypozyczalniaaut.History;
+import blazej.kwidzinski.mpr.wypozyczalniaaut.InvalidMoneyAmountValue;
+import blazej.kwidzinski.mpr.wypozyczalniaaut.ItemType;
+import blazej.kwidzinski.mpr.wypozyczalniaaut.Auto;
+import blazej.kwidzinski.mpr.wypozyczalniaaut.NoMoneyException;
+import blazej.kwidzinski.mpr.wypozyczalniaaut.AutoRental;
 import services.CustomerDBManager;
 import services.HistoryDBManager;
-import services.MovieDBManager;
+import services.AutoDBManager;
 
-public class VideoRentTest {
+public class AutoRentTest {
 
-	private static final Movie gladiator = new Movie("Gladiator", ItemType.DVD,
-			"R. Scott", 29.99F);
-	private static final Movie smurfs = new Movie("Smerfy", ItemType.TAPE,
-			"Peyo", 14.99F);
-	private static final Movie kubusRevenge = new Movie(
-			"Kubus Puchatek: Zemsta Prosiaczka", ItemType.DVD, "Jan Nowak",
-			12.99F);
-	private static final Movie kubusPowrot = new Movie(
-			"Kubus Puchatek: Powrot", ItemType.DVD, "Jan Nowak", 29.99F);
-	private static final Movie kubusPuchatek = new Movie("Kubus Puchatek",
-			ItemType.TAPE, "Jan Nowak", 9.99F);
-	private static final Movie wPustyniIwPuszczy = new Movie(
-			"W pustyni i w puszczy", ItemType.TAPE, "Jan Nowak", 19.99F);
-	private static final Movie batman = new Movie("Batman", ItemType.DVD,
-			"Adam Xsinski", 13);
-	private static final Movie drHouseMovie = new Movie("Dr House",
-			ItemType.CD, "Pawel Nazwisko", 5);
-	private static final Movie dzienSwira = new Movie("Dzien swira",
-			ItemType.DVD, "Marek Koterski", 20.1F);
-	private VideoRental videoRental;
+	private static final Auto astra = new Auto("Opel Astra", ItemType.Hatchback,
+			"R. Scott", 300);
+	private static final Auto mondeo = new Auto("Ford Mondeo", ItemType.Kombi,
+			"Peyo", 600);
+	private static final Auto fiesta = new Auto(
+			"Ford Fiesta", ItemType.Hatchback, "Jan Nowak",
+			500);
+	private static final Auto galaxy = new Auto(
+			"Ford Galaxy", ItemType.VAN, "Jan Nowak", 750);
+	private static final Auto golf = new Auto("Volkswagen Golf",
+			ItemType.Kombi, "Jan Nowak", 9.99F);
+	private AutoRental autoRental;
 
 	@Before
 	public void setUp() throws Exception {
-		videoRental = new VideoRental();
-		videoRental.addNewMovie(wPustyniIwPuszczy);
-		videoRental.addNewMovie(batman);
-		videoRental.addNewMovie(drHouseMovie);
-		videoRental.addNewMovie(kubusPuchatek);
-		videoRental.addNewMovie(kubusPowrot);
-		videoRental.addNewMovie(kubusRevenge);
-		videoRental.addNewMovie(smurfs);
-		videoRental.addNewMovie(gladiator);
+		autoRental = new AutoRental();
+		autoRental.addNewAuto(astra);
+		autoRental.addNewAuto(mondeo);
+		autoRental.addNewAuto(fiesta);
+		autoRental.addNewAuto(galaxy);
+		autoRental.addNewAuto(golf);
 	}
 
 	@After
@@ -62,16 +51,16 @@ public class VideoRentTest {
 	}
 
 	@Test
-	public void showAllMoviesInVieoRentalTest() {
-		videoRental.printAllMovies();
+	public void showAllCarsInAutoRentalTest() {
+		autoRental.printAllCars();
 	}
 
 	@Test
-	public void removeMovieFromVieoRentalTest() {
-		Movie smerfy = videoRental.findMovieByTitle("Smerfy");
-		videoRental.printAllMovies();
-		videoRental.removeMovieFromVideoRental(smerfy);
-		videoRental.printAllMovies();
+	public void removeAutoFromAutoRentalTest() {
+		Auto smerfy = autoRental.findAutoByTitle("Ford Mondeo");
+		autoRental.printAllCars();
+		autoRental.removeAutoFromAutoRental(mondeo);
+		autoRental.printAllCars();
 	}
 
 	@Test
@@ -80,18 +69,18 @@ public class VideoRentTest {
 
 		Customer customer = null;
 		CustomerDBManager customerDBManager = new CustomerDBManager();
-		MovieDBManager movieDBManager = new MovieDBManager();
+		AutoDBManager autoDBManager = new AutoDBManager();
 		try {
-			customer = new Customer("Pawel Kowalski TESTER", 15500);
+			customer = new Customer("Adam Bednarczyk TESTER", 15500);
 			customerDBManager.addCustomer(customer);
-			customer = new Customer("Adam Xinski TESTER", 1420);
+			customer = new Customer("Filip Olcha TESTER", 1420);
 			customerDBManager.addCustomer(customer);
 
-			movieDBManager.createNewMovie(wPustyniIwPuszczy);
+			autoDBManager.createNewAuto(fiesta);
 
-			movieDBManager.createNewMovie(new Movie(
-					"W pustyni i w puszczy: ZEMSTA NELL", ItemType.DVD,
-					"Jan Nowak", 25.99F));
+			autoDBManager.createNewAuto(new Auto(
+					"Volkswagen Passat", ItemType.Kombi,
+					"Jan Nowak", 500));
 		} catch (InvalidMoneyAmountValue e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -104,18 +93,18 @@ public class VideoRentTest {
 		List<Customer> allcustomers = customerDBManager.getAllcustomers();
 		Customer customer1 = allcustomers.get(allcustomers.size() - 1);
 		Customer customer2 = allcustomers.get(allcustomers.size() - 2);
-		// znajdz dwa ostatnie filmy w bazie
-		List<Movie> findAllMovies = new MovieDBManager().findAllMovies();
-		Movie movie1 = findAllMovies.get(findAllMovies.size() - 1);
-		Movie movie2 = findAllMovies.get(findAllMovies.size() - 2);
+		// znajdz dwa ostatnie samochody w bazie
+		List<Auto> findAllCars = new AutoDBManager().findAllCars();
+		Auto auto1 = findAllCars.get(findAllCars.size() - 1);
+		Auto auto2 = findAllCars.get(findAllCars.size() - 2);
 
-		// wypozycz filmy
-		customer1.takeMovieAndCreateHistoryLog(movie1);
-		customer1.takeMovieAndCreateHistoryLog(movie2);
+		// wypozycz samochody
+		customer1.takeAutoAndCreateHistoryLog(auto1);
+		customer1.takeAutoAndCreateHistoryLog(auto2);
 
-		customer2.takeMovieAndCreateHistoryLog(movie2);
-		customer2.takeMovieAndCreateHistoryLog(movie1);
-		customer2.takeMovieAndCreateHistoryLog(movie2);
+		customer2.takeAutoAndCreateHistoryLog(auto2);
+		customer2.takeAutoAndCreateHistoryLog(auto1);
+		customer2.takeAutoAndCreateHistoryLog(auto2);
 
 		// pokaz historie dla klienta
 		customer1.showHistory();
@@ -129,7 +118,7 @@ public class VideoRentTest {
 				.println("\n\n\n********************** TEST LACZENIA WIELE DO WIELU NA PRZYKLADZIE TABELKI HISTORY **********************\n");
 		try {
 			HistoryDBManager historyDBManager = new HistoryDBManager();
-			MovieDBManager movieDBManager = new MovieDBManager();
+			AutoDBManager autoDBManager = new AutoDBManager();
 			CustomerDBManager customerDBManager = new CustomerDBManager();
 
 			Customer customer = new Customer("Adam Kowalski", 600);
@@ -140,28 +129,27 @@ public class VideoRentTest {
 			historyDBManager.deleteHistoryForCustomer(customerSAVEDinDB);
 			// clear MOVIES table
 
-			int deleteAllMoviesStatus = movieDBManager.deleteAllMovies();
+			int deleteAllCarsStatus = autoDBManager.deleteAllCars();
 			Assert.assertTrue(
-					"Blad, nie mozna usunac wszystkich filmow z tabeli MOVIE, STATUS="
-							+ deleteAllMoviesStatus, deleteAllMoviesStatus == 1);
-			// add movies to DB
-			movieDBManager.createNewMovie(dzienSwira);
-			movieDBManager.createNewMovie(gladiator);
-			movieDBManager.createNewMovie(kubusRevenge);
-			movieDBManager.createNewMovie(kubusPowrot);
-			movieDBManager.createNewMovie(smurfs);
-			movieDBManager.createNewMovie(wPustyniIwPuszczy);
+					"Blad, nie mozna usunac wszystkich samochodow z tabeli MOVIE, STATUS="
+							+ deleteAllCarsStatus, deleteAllCarsStatus == 1);
+			// add cars to DB
+			autoDBManager.createNewAuto(mondeo);
+			autoDBManager.createNewAuto(fiesta);
+			autoDBManager.createNewAuto(astra);
+			autoDBManager.createNewAuto(golf);
+			autoDBManager.createNewAuto(galaxy);
 
-			List<Movie> allMoviesInDatabase = movieDBManager.findAllMovies();
+			List<Auto> allCarsInDatabase = autoDBManager.findAllCars();
 
-			// wypozyczymy film kilka razy i zweryfikujemy czy jest to
+			// wypozyczymy samochod kilka razy i zweryfikujemy czy jest to
 			// odnotowane w historii
-			for (Movie movie : allMoviesInDatabase) {
-				movie.setAvailable(true);
-				videoRental.rentMovie(customerSAVEDinDB, movie);
+			for (Auto auto : allCarsInDatabase) {
+				auto.setAvailable(true);
+				autoRental.rentAuto(customerSAVEDinDB, auto);
 			}
 
-			int numberOfRentedMovies = allMoviesInDatabase.size();
+			int numberOfRentedCars = allCarsInDatabase.size();
 
 			customerSAVEDinDB.showHistory();
 
@@ -171,8 +159,8 @@ public class VideoRentTest {
 			Assert.assertNotNull("BLAD ! brak historii dla kienta",
 					historyDBManager);
 			Assert.assertTrue(
-					" BLAD! ilosc wpisow w tabelce HISTORY nie zgadza sie z iloscia wypozyczonych fimow",
-					historyForCustomer.size() == numberOfRentedMovies);
+					" BLAD! ilosc wpisow w tabelce HISTORY nie zgadza sie z iloscia wypozyczonych samochodow",
+					historyForCustomer.size() == numberOfRentedCars);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -205,8 +193,8 @@ public class VideoRentTest {
 		Customer c = null;
 		Customer c2 = null;
 		try {
-			c = new Customer("Michal XABASDAS", 200);
-			c2 = new Customer("Pawel ASDASD", 100);
+			c = new Customer("Rafal XYZ", 200);
+			c2 = new Customer("Paweł ZYX", 100);
 		} catch (InvalidMoneyAmountValue e) {
 			e.printStackTrace();
 		}
@@ -214,7 +202,7 @@ public class VideoRentTest {
 
 			CustomerDBManager db = new CustomerDBManager();
 
-			MovieDBManager mdb = new MovieDBManager();
+			AutoDBManager mdb = new AutoDBManager();
 
 			// TRANSACTIONS
 
@@ -259,11 +247,11 @@ public class VideoRentTest {
 
 			Customer customer = allcustomers.get(0);
 
-			mdb.addMovieToCustomer(customer, gladiator);
-			List<Movie> movies = mdb.findAllMovies();
+			mdb.addAutoToCustomer(customer, gladiator);
+			List<Auto> cars = mdb.findAllCars();
 
-			for (Movie movie : movies) {
-				System.out.println(movie);
+			for (Auto auto : cars) {
+				System.out.println(auto);
 			}
 
 			for (Customer cc : db.getAllcustomers()) {
@@ -287,29 +275,29 @@ public class VideoRentTest {
 	}
 
 	@Test
-	public void rentMovieTest() {
+	public void rentAutoTest() {
 		Customer customer = null;
 		try {
-			customer = new Customer("Pawel Kowalski", 200);
+			customer = new Customer("Mariusz Wlazly", 200);
 		} catch (InvalidMoneyAmountValue e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		Movie houseMovie = videoRental.findMovieByTitle("Dr House");
+		Auto mondeoAuto = autoRental.findAutoByModel("Ford Mondeo");
 
 		try {
-			videoRental.rentMovie(customer, houseMovie);
+			autoRental.rentAuto(customer, mondeoAuto);
 			System.out
-					.println("Sprawdzanie czy wypozyczony film ma FLAGE AVAILABLE=FALSE");
-			boolean available = houseMovie.isAvailable();
+					.println("Sprawdzanie czy wypozyczony samochod ma FLAGE AVAILABLE=FALSE");
+			boolean available = mondeoAuto.isAvailable();
 			Assert.assertFalse(
-					"BLAD! film mimo wypozyczenia ma flage dostepnosci = true",
+					"BLAD! samochod mimo wypozyczenia ma flage dostepnosci = true",
 					available);
-			System.out.println("Udalo sie wypozyczyc film "
-					+ houseMovie.getTitle());
+			System.out.println("Udalo sie wypozyczyc samochod "
+					+ houseAuto.getMondeo());
 		} catch (NoMoneyException e) {
 			e.printStackTrace();
-			Assert.fail("Wystapil wyjatek w czasie proby wypozyczenia filmu: "
+			Assert.fail("Wystapil wyjatek w czasie proby wypozyczenia samochodu: "
 					+ e.getMessage());
 		}
 
@@ -318,23 +306,23 @@ public class VideoRentTest {
 	@Test
 	public void settingPriceTest() {
 		float newPrice = 555;
-		videoRental.setNewPriceForMovie("Dr House", newPrice);
-		Movie movie = videoRental.findMovieByTitle("Dr House");
+		autoRental.setNewPriceForAuto("Ford Mondeo", newPrice);
+		Auto auto = autoRental.findAutoByModel("Ford Mondeo");
 		Assert.assertEquals(
-				"BLAD, Nie udalo sie ustawic nowej ceny dla filmu ",
-				movie.getPrice(), newPrice);
+				"BLAD, Nie udalo sie ustawic nowej ceny dla samochodu ",
+				auto.getPrice(), newPrice);
 
 	}
 
 	@Test
-	public void findByDirectorTest() {
-		System.out.println("Wyszukiwanie po rezyserze...");
-		List<Movie> resultList = videoRental.findMovieByDirector("Jan Nowak");
+	public void findByAutoTypeTest() {
+		System.out.println("Wyszukiwanie po rodzaju samochodu...");
+		List<Auto> resultList = autoRental.findAutoByType("VAN");
 		Assert.assertNotNull(
-				"Blad, lista zwrocona z metody wyszukujacej po rezyserze zwrocila NULL",
+				"Blad, lista zwrocona z metody wyszukujacej po rodzaju samochodu zwrocila NULL",
 				resultList);
 		Assert.assertTrue(
-				"Blad, lista zwrocona z metody wyszukujacej po rezyserze jest pusta",
+				"Blad, lista zwrocona z metody wyszukujacej po rodzaju samochodu jest pusta",
 				resultList.size() > 0);
 		if (resultList.size() > 0) {
 			for (int i = 0; i < resultList.size(); i++) {
@@ -345,47 +333,29 @@ public class VideoRentTest {
 	}
 
 	@Test
-	public void findByDataCarrierTypeTest() {
-		System.out.println("Wyszukiwanie po typie nosnika...");
-		List<Movie> resultList = videoRental.findMovieByType("DVD");
+	public void findByModelTest() {
+		Auto smerfy = autoRental.findAutoByModel("Mondeo");
 		Assert.assertNotNull(
-				"Blad, lista zwrocona z metody wyszukujacej po rodzaju nosnika zwrocila NULL",
-				resultList);
-		Assert.assertTrue(
-				"Blad, lista zwrocona z metody wyszukujacej po rodzaju nosnika jest pusta",
-				resultList.size() > 0);
-		if (resultList.size() > 0) {
-			for (int i = 0; i < resultList.size(); i++) {
-				System.out
-						.println("Znaleziono " + resultList.get(i).toString());
-			}
-		}
-	}
-
-	@Test
-	public void findByTitleTest() {
-		Movie smerfy = videoRental.findMovieByTitle("Smerfy");
-		Assert.assertNotNull(
-				"Blad, nie znaleziono filmu Smerfy szukajac po tytule", smerfy);
-		if (smerfy != null)
-			System.out.println("Znaleziono film Smerfy wyszujujac po tytule");
+				"Blad, nie znaleziono samochodu Mondeo szukajac po modelu", mondeo);
+		if (mondeo != null)
+			System.out.println("Znaleziono samochod Mondel wyszukujac po modelu");
 	}
 
 	@Test(expected = InvalidMoneyAmountValue.class)
 	public void createCustomerWithNegativeAmountOfMoneyTest()
 			throws InvalidMoneyAmountValue {
 		System.out.println("Test wyjatku InvalidMoneyAmountValue ");
-		Customer customer1 = new Customer("Pawel Kowalski", -200);
+		Customer customer1 = new Customer("Jan Nowak", -200);
 	}
 
 	@Test(expected = NoMoneyException.class)
 	public void clientHasNoMoneyToPayTest() throws InvalidMoneyAmountValue,
 			NoMoneyException {
 		System.out.println("Test wyjatku NoMoneyException ");
-		Customer customer1 = new Customer("Pawel Kowalski", 1);
-		Movie smerfy = videoRental.findMovieByTitle("Smerfy");
-		Assert.assertNotNull("nie znaleziono filmu Smerfy", smerfy);
-		System.out.println("Znaleziono film Smerfy");
-		videoRental.rentMovie(customer1, smerfy);
+		Customer customer1 = new Customer("Jan Nowak", 1);
+		Auto mondeo = autoRental.findAutoByTitle("Mondeo");
+		Assert.assertNotNull("nie znaleziono samochodu Mondeo", mondeo);
+		System.out.println("Znaleziono samochod Mondeo");
+		autoRental.rentAuto(customer1, mondeo);
 	}
 }

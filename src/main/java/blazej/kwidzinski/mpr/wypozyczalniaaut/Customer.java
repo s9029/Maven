@@ -1,4 +1,4 @@
-package sala.patryk.projekt.wypozyczalniavideo;
+package blazej.kwidzinski.mpr.wypozyczalniaaut;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +12,10 @@ public class Customer {
 	private Logger logger = Logger.getLogger(Customer.class);
 	private final String name;
 	private float cash;
-	private List<Movie> myVideoList;
+	private List<Auto> myAutoList;
 
 	public Customer(String name, float money) throws InvalidMoneyAmountValue {
-		myVideoList = new ArrayList<Movie>();
+		myAutoList = new ArrayList<Auto>();
 		this.name = name;
 		if (money < 0) {
 			throw new InvalidMoneyAmountValue();
@@ -24,7 +24,7 @@ public class Customer {
 	}
 	
 	public Customer(String name, int money) throws InvalidMoneyAmountValue {
-		myVideoList = new ArrayList<Movie>();
+		myAutoList = new ArrayList<Auto>();
 		this.name = name;
 		if (money < 0) {
 			throw new InvalidMoneyAmountValue();
@@ -38,17 +38,17 @@ public class Customer {
 	}
 
 
-	public void showAllMyRentedMovies() {
-		logger.info("Lista filmow klienta o nazwisku: " + name);
-		for (Movie movie : myVideoList) {
-			logger.info(movie.toString());
+	public void showAllMyRentedCars() {
+		logger.info("Lista aut klienta o nazwisku: " + name);
+		for (Auto auto : myAutoList) {
+			logger.info(auto.toString());
 		}
 	}
 
-	public Movie returnMovie(String title) {
-		for (Movie movie : myVideoList) {
-			if (movie.getTitle().equals(title))
-				return movie;
+	public Auto returnAuto(String model) {
+		for (Auto auto : myAutoList) {
+			if (auto.getModel().equals(model))
+				return auto;
 		}
 		return null;
 	}
@@ -66,7 +66,7 @@ public class Customer {
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", name=" + name
-				+ ", cash=" + cash + ", myVideoList=" + myVideoList + "]";
+				+ ", cash=" + cash + ", myCarList=" + myAutoList + "]";
 	}
 
 

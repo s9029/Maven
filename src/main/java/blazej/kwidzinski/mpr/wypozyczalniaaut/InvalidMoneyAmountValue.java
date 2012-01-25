@@ -1,4 +1,4 @@
-package sala.patryk.projekt.wypozyczalniavideo;
+package blazej.kwidzinski.mpr.wypozyczalniaaut;
 
 public class InvalidMoneyAmountValue extends Exception {
 

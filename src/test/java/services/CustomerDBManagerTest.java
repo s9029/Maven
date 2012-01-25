@@ -1,11 +1,12 @@
 package services;
 
 import static org.junit.Assert.*;
-import sala.patryk.projekt.wypozyczalniavideo.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import blazej.kwidzinski.mpr.wypozyczalniaaut.*;
 
 public class CustomerDBManagerTest {
 
@@ -14,7 +15,7 @@ public class CustomerDBManagerTest {
 	@Before
 	public void setUp() throws Exception {
 		try {
-			CustomerManager.addCustomer(new Customer("Pan", (float)1000));
+			CustomerManager.addCustomer(new Customer("Jan", (float)1000));
 		} catch (InvalidMoneyAmountValue e) {
 			e.printStackTrace();
 		}
@@ -28,7 +29,7 @@ public class CustomerDBManagerTest {
 	@Test
 	public void testAddCustomer() {
 		try {
-			CustomerManager.addCustomer(new Customer("Pan2", (float)1000));
+			CustomerManager.addCustomer(new Customer("Bogdan", (float)1000));
 		} catch (InvalidMoneyAmountValue e) {
 			e.printStackTrace();
 		}
@@ -38,7 +39,7 @@ public class CustomerDBManagerTest {
 	@Test
 	public void testGetAllCustomers() {
 		try {
-			CustomerManager.addCustomer(new Customer("Pan3", (float)1000));
+			CustomerManager.addCustomer(new Customer("Witold", (float)1000));
 		} catch (InvalidMoneyAmountValue e) {
 			e.printStackTrace();
 		}
@@ -54,18 +55,18 @@ public class CustomerDBManagerTest {
 
 	@Test
 	public void testFindCustomerByName() {
-		assertEquals(1,CustomerManager.findCustomerByName("Pan").size());
+		assertEquals(1,CustomerManager.findCustomerByName("Jan").size());
 		
 	}
 
 	@Test
 	public void testDeleteCustomer() {
 		try {
-			CustomerManager.addCustomer(new Customer("Pan2", (float)1000));
+			CustomerManager.addCustomer(new Customer("Bogdan", (float)1000));
 		} catch (InvalidMoneyAmountValue e) {
 			e.printStackTrace();
 		}
-		CustomerManager.deleteCustomer(CustomerManager.findCustomerByName("Pan"));
+		CustomerManager.deleteCustomer(CustomerManager.findCustomerByName("Jan"));
 	}
 
 }

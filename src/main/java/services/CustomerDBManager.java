@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
-import sala.patryk.projekt.wypozyczalniavideo.*;;
+import blazej.kwidzinski.mpr.wypozyczalniaaut.*;
+
 
 public class CustomerDBManager {
 
@@ -135,16 +136,4 @@ public class CustomerDBManager {
 			e.printStackTrace();
 		}
 	}
-
-	// klasa anonimowa 
-	public void printCustomerWithCondition(List<Customer> CustomerList,
-			Condition condition) {
-		for (Customer customer : CustomerList) {
-			if (condition.getCondition(customer)) {
-				System.out.println("Name: " + customer.getName()
-						+ "\tCash: " + customer.getCash());
-			}
-		}
-	}
-
 }

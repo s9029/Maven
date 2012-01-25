@@ -6,57 +6,58 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import sala.patryk.projekt.wypozyczalniavideo.*;
+import blazej.kwidzinski.mpr.wypozyczalniaaut.*;
+
 
 public class HistoryDBManagerTest {
 
-	MovieDBManager MovieManager = new MovieDBManager();
+	AutoDBManager AutoManager = new AutoDBManager();
 	CustomerDBManager CustomerManager = new CustomerDBManager();
 	HistoryDBManager HistoryManager = new HistoryDBManager();
 
 	@Before
 	public void setUp() throws Exception {
-		MovieManager.addMovie(new Movie("title1", (float)100));
-		MovieManager.addMovie(new Movie("title2", (float)100));
-		MovieManager.addMovie(new Movie("title3", (float)100));
+		AutoManager.addAuto(new Auto("model1", (float)100));
+		AutoManager.addAuto(new Auto("model2", (float)100));
+		AutoManager.addAuto(new Auto("model3", (float)100));
 
-		CustomerManager.addCustomer(new Customer("Pan1", (float)1000));
-		CustomerManager.addCustomer(new Customer("Pan2", (float)1000));
-		HistoryManager.SellMovie(
-				CustomerManager.findCustomerByName("Pan1"),
-				MovieManager.findMovieByTitle("title2"));
+		CustomerManager.addCustomer(new Customer("Jan1", (float)1000));
+		CustomerManager.addCustomer(new Customer("Jan2", (float)1000));
+		HistoryManager.SellAuto(
+				CustomerManager.findCustomerByName("Jan1"),
+				AutoManager.findAutoByModel("model2"));
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		HistoryManager.deleteAllSales();
-		MovieManager.deleteAllMovies();
+		AutoManager.deleteAllCars();
 		CustomerManager.deleteAllCustomers();
 	}
 	
 	@Test
-	public void testSellMovie() {
-		MovieManager.addMovie(new Movie("title4",(float)100));
-		HistoryManager.SellMovie(CustomerManager.findCustomerByName("Pan1"), MovieManager.findMovieByTitle("title4"));
-		assertEquals(2, HistoryManager.getHistory(CustomerManager.findCustomerByName("Pan1")).size());
+	public void testSellAuto() {
+		AutoManager.addAuto(new Auto("model4",(float)100));
+		HistoryManager.SellAuto(CustomerManager.findCustomerByName("Jan1"), AutoManager.findAutoByModel("model4"));
+		assertEquals(2, HistoryManager.getHistory(CustomerManager.findCustomerByName("Jan1")).size());
 	}
 
 	@Test
 	public void testDeleteHistory() {
-		assertEquals(1, HistoryManager.getHistory(CustomerManager.findCustomerByName("Pan1")).size());
-		HistoryManager.deleteHistory(CustomerManager.findCustomerByName("Pan1"));
-		assertEquals(0, HistoryManager.getHistory(CustomerManager.findCustomerByName("Pan1")).size());
+		assertEquals(1, HistoryManager.getHistory(CustomerManager.findCustomerByName("Jan1")).size());
+		HistoryManager.deleteHistory(CustomerManager.findCustomerByName("Jan1"));
+		assertEquals(0, HistoryManager.getHistory(CustomerManager.findCustomerByName("Jan1")).size());
 	}
 
 	@Test
 	public void testDeleteAllSales() {
 		HistoryManager.deleteAllSales();
-		assertTrue(HistoryManager.getHistory(CustomerManager.findCustomerByName("Pan1")).isEmpty());
+		assertTrue(HistoryManager.getHistory(CustomerManager.findCustomerByName("Jan1")).isEmpty());
 	}
 
 	@Test
 	public void testGetHistory() {
-		assertEquals(1, HistoryManager.getHistory(CustomerManager.findCustomerByName("Pan1")).size());
+		assertEquals(1, HistoryManager.getHistory(CustomerManager.findCustomerByName("Jan1")).size());
 	}
 
 }

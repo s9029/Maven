@@ -2,11 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>sala.patryk.projekt</groupId>
-	<artifactId>wypozyczalniavideo.maven</artifactId>
+	<groupId>blazej.kwidzinski.mpr</groupId>
+	<artifactId>wypozyczalniaaut.maven</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
-	<name>wypozyczalnia-video</name>
+	<name>wypozyczalnia-aut</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -32,7 +32,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>wypozyczalnia-video-${version}</finalName>
+		<finalName>wypozyczalnia-aut-${version}</finalName>
 		<resources>
 			<resource>
 				<directory>src/resources</directory>
@@ -63,7 +63,7 @@
 							</descriptorRefs>
 							<archive>
 								<manifest>
-									<mainClass>sala.patryk.projekt.wypozyczalniavideo.Main</mainClass>
+									<mainClass>blazej.kwidzinski.mpr.wypozyczalniaaut.Main</mainClass>
 								</manifest>
 							</archive>
 						</configuration>

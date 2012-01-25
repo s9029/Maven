@@ -1,4 +1,4 @@
-package sala.patryk.projekt.wypozyczalniavideo;
+package blazej.kwidzinski.mpr.wypozyczalniaaut;
 
 public class NoMoneyException extends Exception {
 	
@@ -8,7 +8,7 @@ public class NoMoneyException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	public NoMoneyException() {
-		super("Klient nie ma pieniedzy aby zaplacic za film");
+		super("Klient nie ma pieniedzy aby zaplacic za wypozyczenie auta");
 	}
 
 }
