@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="1.468" errors="0" skipped="0" tests="4" name="services.HistoryDBManagerTest">
+<testsuite failures="0" time="1.462" errors="0" skipped="0" tests="4" name="services.HistoryDBManagerTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/opt/devel/jdk1.6.0_27/jre/lib/i386"/>
@@ -13,13 +13,13 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="unknown"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/home/student/git/MPR_db"/>
+    <property name="user.dir" value="/opt/devel/eclipse_workspace/wypozyczalnia"/>
     <property name="java.runtime.version" value="1.6.0_27-b07"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="basedir" value="/home/student/git/MPR_db"/>
+    <property name="basedir" value="/opt/devel/eclipse_workspace/wypozyczalnia"/>
     <property name="java.endorsed.dirs" value="/opt/devel/jdk1.6.0_27/jre/lib/endorsed"/>
     <property name="os.arch" value="i386"/>
-    <property name="surefire.real.class.path" value="/home/student/git/MPR_db/target/surefire/surefirebooter1001096221446475274.jar"/>
+    <property name="surefire.real.class.path" value="/opt/devel/eclipse_workspace/wypozyczalnia/target/surefire/surefirebooter584633215065343077.jar"/>
     <property name="java.io.tmpdir" value="/tmp"/>
     <property name="line.separator" value="
 "/>
@@ -27,7 +27,7 @@
     <property name="os.name" value="Linux"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/opt/devel/jdk1.6.0_27/jre/lib/i386/client:/opt/devel/jdk1.6.0_27/jre/lib/i386:/opt/devel/jdk1.6.0_27/jre/../lib/i386:/opt/devel/jdk1.6.0_27/jre/lib/i386/client:/opt/devel/jdk1.6.0_27/jre/lib/i386::/usr/java/packages/lib/i386:/lib:/usr/lib"/>
-    <property name="surefire.test.class.path" value="/home/student/git/MPR_db/target/test-classes:/home/student/git/MPR_db/target/classes:/opt/devel/maven_repo/log4j/log4j/1.2.16/log4j-1.2.16.jar:/opt/devel/maven_repo/org/hsqldb/hsqldb/2.2.4/hsqldb-2.2.4.jar:/opt/devel/maven_repo/junit/junit/4.10/junit-4.10.jar:/opt/devel/maven_repo/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar:"/>
+    <property name="surefire.test.class.path" value="/opt/devel/eclipse_workspace/wypozyczalnia/target/test-classes:/opt/devel/eclipse_workspace/wypozyczalnia/target/classes:/opt/devel/maven_repo/log4j/log4j/1.2.16/log4j-1.2.16.jar:/opt/devel/maven_repo/org/hsqldb/hsqldb/2.2.4/hsqldb-2.2.4.jar:/opt/devel/maven_repo/junit/junit/4.10/junit-4.10.jar:/opt/devel/maven_repo/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar:"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="50.0"/>
     <property name="sun.management.compiler" value="HotSpot Client Compiler"/>
@@ -38,11 +38,11 @@
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.specification.version" value="1.6"/>
     <property name="user.name" value="student"/>
-    <property name="java.class.path" value="/home/student/git/MPR_db/target/test-classes:/home/student/git/MPR_db/target/classes:/opt/devel/maven_repo/log4j/log4j/1.2.16/log4j-1.2.16.jar:/opt/devel/maven_repo/org/hsqldb/hsqldb/2.2.4/hsqldb-2.2.4.jar:/opt/devel/maven_repo/junit/junit/4.10/junit-4.10.jar:/opt/devel/maven_repo/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar:"/>
+    <property name="java.class.path" value="/opt/devel/eclipse_workspace/wypozyczalnia/target/test-classes:/opt/devel/eclipse_workspace/wypozyczalnia/target/classes:/opt/devel/maven_repo/log4j/log4j/1.2.16/log4j-1.2.16.jar:/opt/devel/maven_repo/org/hsqldb/hsqldb/2.2.4/hsqldb-2.2.4.jar:/opt/devel/maven_repo/junit/junit/4.10/junit-4.10.jar:/opt/devel/maven_repo/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar:"/>
     <property name="java.vm.specification.version" value="1.0"/>
     <property name="sun.arch.data.model" value="32"/>
     <property name="java.home" value="/opt/devel/jdk1.6.0_27/jre"/>
-    <property name="sun.java.command" value="/home/student/git/MPR_db/target/surefire/surefirebooter1001096221446475274.jar /home/student/git/MPR_db/target/surefire/surefire7058576710986569115tmp /home/student/git/MPR_db/target/surefire/surefire4665043555276926120tmp"/>
+    <property name="sun.java.command" value="/opt/devel/eclipse_workspace/wypozyczalnia/target/surefire/surefirebooter584633215065343077.jar /opt/devel/eclipse_workspace/wypozyczalnia/target/surefire/surefire1131934674275109686tmp /opt/devel/eclipse_workspace/wypozyczalnia/target/surefire/surefire6261596212493713485tmp"/>
     <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
     <property name="user.language" value="pl"/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
@@ -57,8 +57,8 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.052" classname="services.HistoryDBManagerTest" name="testSellMovie"/>
-  <testcase time="0.005" classname="services.HistoryDBManagerTest" name="testDeleteHistory"/>
+  <testcase time="0.021" classname="services.HistoryDBManagerTest" name="testSellAuto"/>
+  <testcase time="0.007" classname="services.HistoryDBManagerTest" name="testDeleteHistory"/>
   <testcase time="0.005" classname="services.HistoryDBManagerTest" name="testDeleteAllSales"/>
   <testcase time="0.005" classname="services.HistoryDBManagerTest" name="testGetHistory"/>
 </testsuite>

@@ -66,9 +66,9 @@ public class Main {
 	}
 	
 	// clean database segment
-//	HistoryManager.deleteAllSales();
-//	MovieManager.deleteAllMovies();
-//	CustomerManager.deleteAllCustomers();
+	HistoryManager.deleteAllSales();
+	AutoManager.deleteAllCars();
+	CustomerManager.deleteAllCustomers();
 	
 	}
 }
